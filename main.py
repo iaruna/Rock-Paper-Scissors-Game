@@ -1,5 +1,5 @@
 import random
-print("Welcome to Rock, Paper, Scissors Game.")
+print("Welcome to Rock, Paper And Scissors Game.")
 user_wins = 0
 computer_wins = 0
 
