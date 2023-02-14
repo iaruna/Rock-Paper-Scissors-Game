@@ -1,41 +1,60 @@
+import tkinter as tk
 import random
-print("Welcome to Rock, Paper And Scissors Game.")
-user_wins = 0
-computer_wins = 0
-
 options = ["rock", "paper", "scissors"]
 
-while True:
-    user_input = input("Type Rock/Paper/Scissors or Q to quit: ").lower()
-    if user_input == "q":
-        break
 
-    if user_input not in options:
-        continue
+def check_win(player_choice, computer_pick):
+    if player_choice == "rock" and computer_pick == "scissors":
 
+        return ("You won!")
+    elif player_choice == "paper" and computer_pick == "rock":
+
+        return ("You won!")
+    elif player_choice == "scissors" and computer_pick == "paper":
+
+        return ("You won!")
+    elif player_choice == computer_pick:
+        return ("Game Tie!")
+    else:
+        return("You lost!")
+
+
+def computer_pick():
     random_number = random.randint(0, 2)
     # rock : 0, paper : 1, scissors : 2
-    computer_pick = options[random_number]
-    print("computer_picked", computer_pick + ".")
+    computer = options[random_number]
+    return (computer)
 
-    if user_input == "rock" and computer_pick == "scissors":
-        print("You won!")
-        user_wins += 1
 
-    elif user_input == "paper" and computer_pick == "rock":
-        print("You won!")
-        user_wins += 1
+def play(player_choice):
+    computer_choice = computer_pick()
+    result = check_win(player_choice, computer_choice)
+    result_label.config(text=f"You chose {player_choice}, the computer chose {computer_choice}. {result}")
 
-    elif user_input == "scissors" and computer_pick == "paper":
-        print("You won!")
-        user_wins += 1
 
-    elif user_input == computer_pick:
-        print("Game Tie!")
 
-    else:
-        print("You lost!")
-        computer_wins += 1
 
-print("You won", user_wins, "times")
-print("computer won", computer_wins, "times")
+# Create the main window
+root = tk.Tk()
+root.title("Rock Paper Scissors")
+
+# Create the game label
+game_label = tk.Label(root, text="Choose your move:")
+game_label.pack()
+
+# Create the button widgets
+rock_button = tk.Button(root, text="Rock", command=lambda: play("rock"))
+rock_button.pack()
+
+paper_button = tk.Button(root, text="Paper", command=lambda: play("paper"))
+paper_button.pack()
+
+scissors_button = tk.Button(root, text="Scissors", command=lambda: play("scissors"))
+scissors_button.pack()
+
+# Create the result label
+result_label = tk.Label(root, text="")
+result_label.pack()
+
+# Start the main event loop
+root.mainloop()
